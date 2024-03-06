@@ -36,6 +36,10 @@ struct AnyScreenController {
             await base.preload(view: view as! E.ScreenViewType)
         }
     }
+    
+    public static func == (lhs: AnyScreenController, rhs: any ScreenController) -> Bool {
+        lhs.base === rhs
+    }
 
     func createView(payload: ScreenPayload) -> ScreenView {
         _createView(payload)

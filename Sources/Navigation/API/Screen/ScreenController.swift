@@ -1,9 +1,9 @@
 import Foundation
 
-public protocol ScreenController {
+public protocol ScreenController: AnyObject {
     associatedtype ScreenType: Screen
     associatedtype ScreenViewType: ScreenView
-    associatedtype ScreenPayloadType
+    associatedtype ScreenPayloadType = ScreenType.PayloadType
 
     func createView(payload: ScreenPayloadType?) -> ScreenViewType
     func updateState(

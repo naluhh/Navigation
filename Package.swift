@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Navigation",
+    platforms: [
+        .iOS(.v15) // This line specifies that the package requires iOS 15 or later
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(

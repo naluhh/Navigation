@@ -1,6 +1,6 @@
 import Foundation
 
-public class NavigationGraphDescription {
+public class NavigationGraph {
     let root: ScreenNode
     
     public init(root: ScreenNode) {

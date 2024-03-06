@@ -3,36 +3,40 @@ import Foundation
 public struct AnyScreen: Hashable {
     public let value: any Screen
     private let equals: (any Screen) -> Bool
-    private let hashClosure: (inout Hasher)->Void
-    
+    private let hashClosure: (inout Hasher) -> Void
+
     public init<E: Hashable & Screen>(_ value: E) {
         self.value = value
-        self.equals = { rhs in
+        equals = { rhs in
             if let typedRhs = rhs as? E {
                 return typedRhs == value
             }
             return false
         }
-        self.hashClosure = { hasher in
+        hashClosure = { hasher in
             value.hash(into: &hasher)
         }
     }
-    
-    public static func ==(lhs: AnyScreen, rhs: AnyScreen) -> Bool {
-        return lhs.equals(rhs.value)
+
+    public static func == (lhs: AnyScreen, rhs: AnyScreen) -> Bool {
+        lhs.equals(rhs.value)
     }
     
+    public static func == (lhs: AnyScreen, rhs: any Screen) -> Bool {
+        lhs.equals(rhs)
+    }
+
     var uniqueIdentifier: String {
-        return String(describing: type(of: value))
+        String(describing: type(of: value))
     }
-    
+
     public func hash(into hasher: inout Hasher) {
-        self.hashClosure(&hasher)
+        hashClosure(&hasher)
     }
 }
 
 extension Screen {
     var asAnyScreen: AnyScreen {
-        return AnyScreen(self)
+        AnyScreen(self)
     }
 }
